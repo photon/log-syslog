@@ -1,0 +1,12 @@
+<phpunit colors="true"
+         bootstrap="vendor/photon/photon/src/photon/testbootstrap.php"
+>
+    <testsuites>
+        <testsuite name="Syslog Tests for Photon">
+             <directory>vendor/photon/log-syslog/tests/</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="photon.config" value="vendor/photon/log-syslog/config.test.php"/>
+    </php>
+</phpunit>

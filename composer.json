@@ -1,0 +1,31 @@
+{
+    "name": "photon/log-syslog",
+    "type": "library",
+    "description": "Syslog backend for photon log.",
+    "keywords": [
+        "photon",
+        "log",
+        "syslog"
+    ],
+    "homepage": "http://www.photon-project.com/",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "William MARTIN",
+            "email": "william.martin@power-lan.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Community",
+            "homepage": "https://github.com/photon/log-syslog/blob/master/CONTRIBUTORS.md"
+        }
+    ],
+    "require": {
+        "photon/photon": ">=0.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "photon\\log\\": "src/"
+        }
+    }
+}
