@@ -7,6 +7,7 @@ use \photon\log\Log;
 class SyslogBackend
 {
     private static $isOpen = false;
+
     private static $photon2syslog = array(
         Log::ALL => LOG_DEBUG,
         Log::DEBUG => LOG_DEBUG,
@@ -22,14 +23,23 @@ class SyslogBackend
     public static function write($stack)
     {
         if (self::$isOpen === false) {
-            self::$isOpen = true;
             $default = array(
                 'ident' => 'PhotonApp',
                 'facility' => LOG_USER,
+                'option' => LOG_CONS | LOG_NDELAY | LOG_PID
             );
             $conf = Conf::f('log_syslog', $default);
             $conf = array_merge($default, $conf);
-            openlog($conf['ident'], LOG_PID, $conf['facility']);
+
+            // Windows can log only in LOG_USER
+            if (substr(PHP_OS, 0, 3) === 'WIN') {
+                $conf['facility'] = LOG_USER;
+            }
+
+            $rc = openlog($conf['ident'], $conf['option'], $conf['facility']);
+            if ($rc === true) {
+                self::$isOpen = true;
+            }
         }
 
         foreach ($stack as $elt) {
